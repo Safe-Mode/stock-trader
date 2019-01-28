@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header">
+  <header class="app-header my-4">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand"
           href="#">Stock Trader</a>
@@ -62,9 +62,9 @@
 
 <script>
   export default {
-    data () {
-      return {
-        fund: 10000
+    computed: {
+      fund () {
+        return this.$store.state.fund
       }
     }
   }
