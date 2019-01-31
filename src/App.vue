@@ -2,18 +2,16 @@
   <div id="app"
       class="container">
     <AppHeader></AppHeader>
-    <AppStart></AppStart>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
   import AppHeader from './components/AppHeader'
-  import AppStart from './components/AppStart'
 
   export default {
     components: {
-      AppHeader,
-      AppStart
+      AppHeader
     }
   }
 </script>

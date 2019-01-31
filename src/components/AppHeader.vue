@@ -1,8 +1,9 @@
 <template>
   <header class="app-header my-4">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand"
-          href="#">Stock Trader</a>
+      <router-link to="/"
+          class="navbar-brand"
+          exact>Stock Trader</router-link>
       <button class="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -16,14 +17,18 @@
       <div class="collapse navbar-collapse"
           id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link"
-                href="#">Portfolio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"
-                href="#">Stocks</a>
-          </li>
+          <router-link to="/portfolio"
+              tag="li"
+              class="nav-item"
+              active-class="active">
+            <a class="nav-link">Portfolio</a>
+          </router-link>
+          <router-link to="/stocks"
+              tag="li"
+              class="nav-item"
+              active-class="active">
+            <a class="nav-link">Stocks</a>
+          </router-link>
         </ul>
 
         <ul class="navbar-nav">
@@ -64,7 +69,7 @@
   export default {
     computed: {
       fund () {
-        return this.$store.state.fund
+        return this.$store.state.user.fund
       }
     }
   }
