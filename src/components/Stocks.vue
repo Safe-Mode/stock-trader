@@ -3,7 +3,7 @@
     <ul class="stocks__list row">
       <li class="stocks__item col-6"
           v-for="stock in stocks">
-          <Stock :stock="stock">Buy</Stock>
+          <Stock :stock="stock"></Stock>
       </li>
     </ul>
   </section>

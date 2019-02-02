@@ -4,7 +4,7 @@
       <li class="portfolio__item col-6"
           v-for="stock in userStocks">
           <Stock :stock="stock"
-              isUser="true">Sell</Stock>
+              isUser="true"></Stock>
       </li>
     </ul>
   </section>

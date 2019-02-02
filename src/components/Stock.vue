@@ -22,12 +22,16 @@
           </div>
           <div class="col">
             <button type="submit"
-                class="btn"
-                :class="isUser ? 'btn-danger' : 'btn-success'"
+                v-if="!isUser"
+                class="btn btn-success"
                 :disabled="!quantity"
-                @click.prevent="buyStock">
-              <slot></slot>
-            </button>
+                @click.prevent="buyStock">Buy</button>
+
+            <button type="submit"
+                v-else
+                class="btn btn-danger"
+                :disabled="!quantity"
+                @click.prevent="sellStock">Sell</button>
           </div>
         </div>
       </form>
@@ -59,7 +63,21 @@
           title: this.stock.title,
           quantity: +this.quantity
         })
-        this.$store.commit('updateFund', -this.stock.price)
+
+        const fundDiff = this.price * this.quantity
+
+        this.$store.commit('updateFund', -fundDiff)
+        this.quantity = null
+      },
+      sellStock () {
+        this.$store.commit('removeUserStock', {
+          title: this.stock.title,
+          quantity: +this.quantity
+        })
+
+        const fundDiff = this.price * this.quantity
+
+        this.$store.commit('updateFund', fundDiff)
         this.quantity = null
       }
     }

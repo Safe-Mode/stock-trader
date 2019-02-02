@@ -61,6 +61,19 @@ export default new Vuex.Store({
     },
     updateFund (state, diff) {
       state.user.fund += diff
+    },
+    removeUserStock (state, stock) {
+      let currentIndex
+      const currentStock = state.user.stocks.find((it, i) => {
+        currentIndex = i
+        return it.title === stock.title
+      })
+
+      currentStock.quantity -= stock.quantity
+
+      if (!currentStock.quantity) {
+        state.user.stocks.splice(currentIndex, 1)
+      }
     }
   }
 })
