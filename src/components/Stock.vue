@@ -5,8 +5,9 @@
       <h5 class="card-title text-white mb-0">
         {{ stock.title }}
         <span class="stock__info">
-          ( Price: {{ stock.price }}
-          <template v-if="stock.quantity">| {{ stock.quantity }}</template> )
+          ( Price: {{ price }}
+          <template v-if="stock.quantity">
+            | Quantity: {{ stock.quantity }}</template> )
         </span>
       </h5>
     </header>
@@ -16,12 +17,15 @@
           <div class="col">
             <input type="number"
                 class="form-control"
-                placeholder="Quantity">
+                placeholder="Quantity"
+                v-model="quantity">
           </div>
           <div class="col">
             <button type="submit"
                 class="btn"
-                :class="isUser ? 'btn-danger' : 'btn-success'">
+                :class="isUser ? 'btn-danger' : 'btn-success'"
+                :disabled="!quantity"
+                @click.prevent="buyStock">
               <slot></slot>
             </button>
           </div>
@@ -36,7 +40,29 @@
     props: [
       'stock',
       'isUser'
-    ]
+    ],
+    data () {
+      return {
+        quantity: null
+      }
+    },
+    computed: {
+      price () {
+        return this.$store.state.stocks.find(it => {
+          return it.title === this.stock.title
+        }).price
+      }
+    },
+    methods: {
+      buyStock () {
+        this.$store.commit('addUserStock', {
+          title: this.stock.title,
+          quantity: +this.quantity
+        })
+        this.$store.commit('updateFund', -this.stock.price)
+        this.quantity = null
+      }
+    }
   }
 </script>
 

@@ -34,7 +34,8 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link"
-                href="#">End day</a>
+                href="#"
+                @click.prevent="endDay">End day</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"
@@ -66,11 +67,18 @@
 </template>
 
 <script>
+  import { mapMutations } from 'Vuex'
+
   export default {
     computed: {
       fund () {
         return this.$store.state.user.fund
       }
+    },
+    methods: {
+      ...mapMutations([
+        'endDay'
+      ])
     }
   }
 </script>
