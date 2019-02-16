@@ -31,14 +31,13 @@ export default new Vuex.Store({
       price: 8
     }]
   },
-  getters: {
-
-  },
   mutations: {
     endDay (state) {
       state.stocks.forEach(stock => {
         const difference = getRandomInt(Difference.MIN, Difference.MAX)
-        stock.price += difference
+        const newPrice = stock.price + difference
+
+        stock.price = (newPrice > 0) ? newPrice : 0
       })
     },
     addUserStock (state, stock) {
