@@ -55,13 +55,16 @@
         return this.$store.state.stocks.find(it => {
           return it.title === this.stock.title
         }).price
+      },
+      currentStock () {
+        return this.$store.state.user.currentStock
       }
     },
     methods: {
       buyStock () {
         this.$store.commit('addUserStock', {
           title: this.stock.title,
-          quantity: +this.quantity
+          quantity: this.quantity
         })
 
         const fundDiff = this.price * this.quantity
@@ -72,13 +75,15 @@
       sellStock () {
         this.$store.commit('removeUserStock', {
           title: this.stock.title,
-          quantity: +this.quantity
+          quantity: this.quantity
         })
 
-        const fundDiff = this.price * this.quantity
+        if (this.currentStock.quantity >= this.quantity) {
+          const fundDiff = this.price * this.quantity
 
-        this.$store.commit('updateFund', fundDiff)
-        this.quantity = null
+          this.$store.commit('updateFund', fundDiff)
+          this.quantity = null
+        }
       }
     }
   }

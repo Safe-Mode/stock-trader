@@ -7,14 +7,15 @@ const Difference = {
   MAX: 50
 }
 
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     user: {
       fund: 10000,
-      stocks: []
+      stocks: [],
+      currentStock: {},
+      currentStockIndex: null
     },
     stocks: [{
       title: 'bmw',
@@ -29,6 +30,9 @@ export default new Vuex.Store({
       title: 'twitter',
       price: 8
     }]
+  },
+  getters: {
+
   },
   mutations: {
     endDay (state) {
@@ -63,16 +67,20 @@ export default new Vuex.Store({
       state.user.fund += diff
     },
     removeUserStock (state, stock) {
-      let currentIndex
-      const currentStock = state.user.stocks.find((it, i) => {
-        currentIndex = i
+      state.user.currentStock = state.user.stocks.find((it, i) => {
+        state.user.currentStockIndex = i
         return it.title === stock.title
       })
 
-      currentStock.quantity -= stock.quantity
+      const newStockQuantity = state.user.currentStock.quantity - stock.quantity
 
-      if (!currentStock.quantity) {
-        state.user.stocks.splice(currentIndex, 1)
+      if (newStockQuantity < 0) {
+        console.log(newStockQuantity);
+
+      } else if (!newStockQuantity) {
+        state.user.stocks.splice(state.user.currentStockIndex, 1)
+      } else {
+        state.user.currentStock.quantity = newStockQuantity
       }
     }
   }
