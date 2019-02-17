@@ -32,9 +32,13 @@ export default new Vuex.Store({
       title: 'twitter',
       price: 8
     }],
-    currentStock: null
+    currentStock: null,
+    isDataDropdown: false
   },
   mutations: {
+    setDataDropdown (state, isShown) {
+      state.isDataDropdown = isShown
+    },
     endDay (state) {
       state.stocks.forEach(stock => {
         const difference = getRandomInt(Difference.MIN, Difference.MAX)

@@ -1,6 +1,7 @@
 <template>
   <div id="app"
-      class="container">
+      class="container"
+      @click="isDataDropDown = false">
     <AppHeader></AppHeader>
     <router-view></router-view>
   </div>
@@ -10,9 +11,6 @@
   import AppHeader from './components/AppHeader'
 
   export default {
-    computed: {
-
-    },
     components: {
       AppHeader
     }
