@@ -3,9 +3,16 @@
     <ul class="stocks__list row">
       <li class="stocks__item col-6"
           v-for="stock in stocks">
-          <Stock :stock="stock"></Stock>
+          <Stock :stock="stock"
+              @buy-error="onBuyError"></Stock>
       </li>
     </ul>
+
+    <sweet-modal icon="error"
+        title="Oh noes…"
+        ref="buyError">
+      You've got not enought funds! Try to set less quantity.
+    </sweet-modal>
   </section>
 </template>
 
@@ -13,9 +20,18 @@
   import Stock from './Stock'
 
   export default {
+    name: 'stocks',
     computed: {
       stocks () {
         return this.$store.state.stocks
+      },
+      currentStock () {
+        return this.$store.state.user.currentStock
+      }
+    },
+    methods: {
+      onBuyError () {
+        this.$refs.buyError.open()
       }
     },
     components: {

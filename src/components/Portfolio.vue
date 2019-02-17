@@ -5,13 +5,13 @@
           v-for="stock in userStocks">
           <Stock :stock="stock"
               isUser="true"
-              v-on:stock-error="onStockError"></Stock>
+              @sell-error="onSellError"></Stock>
       </li>
     </ul>
 
     <sweet-modal icon="error"
         title="Oh noes…"
-        ref="modalError">
+        ref="sellError">
       You've got only {{ currentStock.quantity }} stocks of {{ currentStock.title }}
     </sweet-modal>
   </section>
@@ -33,8 +33,8 @@
       }
     },
     methods: {
-      onStockError () {
-        this.$refs.modalError.open()
+      onSellError () {
+        this.$refs.sellError.open()
       }
     }
   }

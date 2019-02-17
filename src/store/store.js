@@ -15,7 +15,9 @@ export default new Vuex.Store({
       fund: 10000,
       stocks: [],
       currentStock: {},
-      currentStockIndex: null
+      currentStockIndex: null,
+      canBuy: true,
+      canSell: false
     },
     stocks: [{
       title: 'bmw',
@@ -29,7 +31,8 @@ export default new Vuex.Store({
     }, {
       title: 'twitter',
       price: 8
-    }]
+    }],
+    currentStock: null
   },
   mutations: {
     endDay (state) {
@@ -41,25 +44,36 @@ export default new Vuex.Store({
       })
     },
     addUserStock (state, stock) {
+      state.currentStock = state.stocks.find((it, i) => {
+        state.user.currentStockIndex = i
+        return it.title === stock.title
+      })
+      state.user.canBuy = state.user.fund - stock.quantity * state.currentStock.price >= 0
+
       const isExists = state.user.stocks.some(it => {
         return it.title === stock.title
       })
+
       let currentStock
 
-      if (isExists) {
-        currentStock = state.user.stocks.find(it => {
-          return it.title === stock.title
-        })
-        currentStock.quantity += stock.quantity
+      if (state.user.canBuy) {
+        if (isExists) {
+          currentStock = state.user.stocks.find(it => {
+            return it.title === stock.title
+          })
+          currentStock.quantity += stock.quantity
+        } else {
+          currentStock = state.stocks.find(it => {
+            return it.title === stock.title
+          })
+
+          const currentStockClone = Object.assign({}, currentStock)
+
+          currentStockClone.quantity = stock.quantity
+          state.user.stocks.push(currentStockClone)
+        }
       } else {
-        currentStock = state.stocks.find(it => {
-          return it.title === stock.title
-        })
-
-        const currentStockClone = Object.assign({}, currentStock)
-
-        currentStockClone.quantity = stock.quantity
-        state.user.stocks.push(currentStockClone)
+        stock.errorCb('buy-error')
       }
     },
     updateFund (state, diff) {
@@ -72,9 +86,10 @@ export default new Vuex.Store({
       })
 
       const newStockQuantity = state.user.currentStock.quantity - stock.quantity
+      state.user.canSell = newStockQuantity >= 0
 
-      if (newStockQuantity < 0) {
-        stock.errorCb('stock-error')
+      if (!state.user.canSell) {
+        stock.errorCb('sell-error')
       } else if (!newStockQuantity) {
         state.user.stocks.splice(state.user.currentStockIndex, 1)
       } else {

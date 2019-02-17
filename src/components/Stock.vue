@@ -80,9 +80,13 @@
       buyStock () {
         this.addUserStock({
           title: this.stock.title,
-          quantity: +this.quantity
+          quantity: +this.quantity,
+          errorCb: this.$emit.bind(this)
         })
-        this.finishDeal(-this.fundDiff)
+
+        if (this.$store.state.user.canBuy) {
+          this.finishDeal(-this.fundDiff)
+        }
       },
       sellStock () {
         this.removeUserStock({
