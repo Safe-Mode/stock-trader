@@ -74,8 +74,7 @@ export default new Vuex.Store({
       const newStockQuantity = state.user.currentStock.quantity - stock.quantity
 
       if (newStockQuantity < 0) {
-        console.log(newStockQuantity);
-
+        stock.errorCb()
       } else if (!newStockQuantity) {
         state.user.stocks.splice(state.user.currentStockIndex, 1)
       } else {

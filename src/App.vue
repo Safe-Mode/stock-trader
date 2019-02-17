@@ -20,4 +20,16 @@
   body {
     font-family: "Bree Serif", "Times New Roman", serif;
   }
+
+  .sweet-modal {
+    .sweet-title {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .sweet-content-content {
+      font-size: 18px;
+    }
+  }
 </style>

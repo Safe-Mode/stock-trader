@@ -36,6 +36,12 @@
         </div>
       </form>
     </div>
+
+    <sweet-modal icon="error"
+        title="Oh noes…"
+        ref="modalError">
+      You've got only {{ currentStock.quantity }} stocks of {{ currentStock.title }}
+    </sweet-modal>
   </article>
 </template>
 
@@ -71,7 +77,7 @@
       buyStock () {
         this.$store.commit('addUserStock', {
           title: this.stock.title,
-          quantity: this.quantity
+          quantity: +this.quantity
         })
 
         this.finishDeal(-this.fundDiff)
@@ -79,7 +85,8 @@
       sellStock () {
         this.$store.commit('removeUserStock', {
           title: this.stock.title,
-          quantity: this.quantity
+          quantity: +this.quantity,
+          errorCb: this.$refs.modalError.open
         })
 
         if (this.currentStock.quantity >= this.quantity) {
