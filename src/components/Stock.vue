@@ -46,6 +46,8 @@
 </template>
 
 <script>
+  import { mapMutations } from 'vuex'
+
   export default {
     props: [
       'stock',
@@ -70,20 +72,24 @@
       }
     },
     methods: {
+      ...mapMutations([
+        'updateFund',
+        'addUserStock',
+        'removeUserStock'
+      ]),
       finishDeal (amount) {
-        this.$store.commit('updateFund', amount)
+        this.updateFund(amount)
         this.quantity = null
       },
       buyStock () {
-        this.$store.commit('addUserStock', {
+        this.addUserStock({
           title: this.stock.title,
           quantity: +this.quantity
         })
-
         this.finishDeal(-this.fundDiff)
       },
       sellStock () {
-        this.$store.commit('removeUserStock', {
+        this.removeUserStock({
           title: this.stock.title,
           quantity: +this.quantity,
           errorCb: this.$refs.modalError.open
