@@ -17,6 +17,7 @@
           <div class="col">
             <input type="number"
                 class="form-control"
+                min="1"
                 placeholder="Quantity"
                 v-model="quantity">
           </div>
@@ -36,12 +37,6 @@
         </div>
       </form>
     </div>
-
-    <sweet-modal icon="error"
-        title="Oh noes…"
-        ref="modalError">
-      You've got only {{ currentStock.quantity }} stocks of {{ currentStock.title }}
-    </sweet-modal>
   </article>
 </template>
 
@@ -49,6 +44,7 @@
   import { mapMutations } from 'vuex'
 
   export default {
+    name: 'stock',
     props: [
       'stock',
       'isUser'
@@ -64,11 +60,11 @@
           return it.title === this.stock.title
         }).price
       },
-      currentStock () {
-        return this.$store.state.user.currentStock
-      },
       fundDiff () {
         return  this.price * this.quantity
+      },
+      currentStock () {
+        return this.$store.state.user.currentStock
       }
     },
     methods: {
@@ -92,7 +88,7 @@
         this.removeUserStock({
           title: this.stock.title,
           quantity: +this.quantity,
-          errorCb: this.$refs.modalError.open
+          errorCb: this.$emit.bind(this)
         })
 
         if (this.currentStock.quantity >= this.quantity) {

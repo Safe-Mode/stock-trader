@@ -10,6 +10,9 @@
   import AppHeader from './components/AppHeader'
 
   export default {
+    computed: {
+
+    },
     components: {
       AppHeader
     }
