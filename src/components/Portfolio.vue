@@ -1,11 +1,11 @@
 <template>
   <section class="portfolio">
     <p class="portfolio__message"
-        v-if="!userStocks.length">You've got no any stocks yet...</p>
+        v-if="!stocks.length">You've got no any stocks yet...</p>
 
     <ul class="portfolio__list row">
       <li class="portfolio__item col-6"
-          v-for="(stock, index) in userStocks"
+          v-for="(stock, index) in stocks"
           :key="index">
           <Stock :stock="stock"
               isUser="true"
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import Stock from './Stock'
 
   export default {
@@ -29,12 +30,10 @@
       Stock
     },
     computed: {
-      userStocks () {
-        return this.$store.state.user.stocks
-      },
-      currentStock () {
-        return this.$store.state.user.currentStock
-      }
+      ...mapState({
+        stocks: state => (state.user) ? state.user.stocks : [],
+        currentStock: state => (state.user) ? state.user.currentStock : {}
+      })
     },
     methods: {
       onSellError () {

@@ -8,11 +8,20 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   import AppHeader from './components/AppHeader'
 
   export default {
     components: {
       AppHeader
+    },
+    methods: {
+      ...mapActions([
+        'fetchData'
+      ])
+    },
+    created () {
+      this.fetchData()
     }
   }
 </script>

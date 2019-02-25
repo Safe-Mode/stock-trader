@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueResource from 'vue-resource'
 import { getRandomInt } from './../util'
 
 const Difference = {
@@ -7,33 +8,14 @@ const Difference = {
   MAX: 50
 }
 
+Vue.use(VueResource)
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {
-      fund: 10000,
-      stocks: [],
-      currentStock: {},
-      currentStockIndex: null,
-      canBuy: true,
-      canSell: false
-    },
-    stocks: [{
-      title: 'bmw',
-      price: 110
-    }, {
-      title: 'google',
-      price: 200
-    }, {
-      title: 'apple',
-      price: 250
-    }, {
-      title: 'twitter',
-      price: 8
-    }],
-    currentStock: null,
-    isDataDropdown: false
+    user: null,
+    stocks: [],
+    isDataDropdown: false,
   },
   mutations: {
     setDataDropdown (state, isShown) {
@@ -99,6 +81,21 @@ export default new Vuex.Store({
       } else {
         state.user.currentStock.quantity = newStockQuantity
       }
+    },
+    SET_STATE (state, data) {
+      for (let key in data) {
+        state[key] = data[key]
+      }
+    }
+  },
+  actions: {
+    fetchData ({ commit }) {
+      Vue.http.get('http://localhost:3000/initial')
+          .then(response => {
+            commit('SET_STATE', response.data)
+          }, error => {
+            console.log(error.body)
+          })
     }
   }
 })

@@ -19,7 +19,7 @@
                 class="form-control"
                 min="1"
                 placeholder="Quantity"
-                v-model="quantity">
+                v-model.number="quantity">
           </div>
           <div class="col">
             <button type="submit"
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import { mapMutations } from 'vuex'
 
   export default {
@@ -55,16 +56,17 @@
       }
     },
     computed: {
+      ...mapState({
+        stocks: state => state.stocks,
+        currentStock: state => state.user.currentStock
+      }),
       price () {
-        return this.$store.state.stocks.find(it => {
+        return this.stocks.find(it => {
           return it.title === this.stock.title
         }).price
       },
       fundDiff () {
         return  this.price * this.quantity
-      },
-      currentStock () {
-        return this.$store.state.user.currentStock
       }
     },
     methods: {
@@ -80,7 +82,7 @@
       buyStock () {
         this.addUserStock({
           title: this.stock.title,
-          quantity: +this.quantity,
+          quantity: this.quantity,
           errorCb: this.$emit.bind(this)
         })
 
@@ -91,7 +93,7 @@
       sellStock () {
         this.removeUserStock({
           title: this.stock.title,
-          quantity: +this.quantity,
+          quantity: this.quantity,
           errorCb: this.$emit.bind(this)
         })
 

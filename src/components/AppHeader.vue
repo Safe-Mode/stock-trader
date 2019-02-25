@@ -70,16 +70,15 @@
 
 <script>
   import { mapMutations } from 'Vuex'
+  import { mapState } from 'Vuex'
 
   export default {
     name: 'app-header',
     computed: {
-      fund () {
-        return this.$store.state.user.fund
-      },
-      isDataDropdown () {
-        return this.$store.state.isDataDropdown
-      }
+      ...mapState({
+        fund: state => (state.user) ? state.user.fund : 0,
+        isDataDropdown: state => state.isDataDropdown
+      })
     },
     methods: {
       ...mapMutations([

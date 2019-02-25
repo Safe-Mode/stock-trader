@@ -7,17 +7,19 @@
 
     <b class="content__user d-block mt-5">
       <span>Your Funds:</span>
-      <span>${{ userFund }}</span>
+      <span>${{ fund }}</span>
     </b>
   </section>
 </template>
 
 <script>
+  import { mapState } from 'Vuex'
+
   export default {
     computed: {
-      userFund () {
-        return this.$store.state.user.fund
-      }
+      ...mapState({
+        fund: state => (state.user) ? state.user.fund : 0
+      })
     }
   }
 </script>

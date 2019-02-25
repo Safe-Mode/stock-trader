@@ -1,0 +1,33 @@
+{
+  "initial": {
+    "user": {
+      "fund": 10000,
+      "stocks": [],
+      "currentStock": {},
+      "currentStockIndex": null,
+      "canBuy": true,
+      "canSell": false
+    },
+    "stocks": [
+      {
+        "title": "bmw",
+        "price": 110
+      },
+      {
+        "title": "google",
+        "price": 200
+      },
+      {
+        "title": "apple",
+        "price": 250
+      },
+      {
+        "title": "twitter",
+        "price": 8
+      }
+    ],
+    "currentStock": null,
+    "isDataDropdown": false
+  },
+  "state": {}
+}

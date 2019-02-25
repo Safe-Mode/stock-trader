@@ -17,17 +17,16 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import Stock from './Stock'
 
   export default {
     name: 'stocks',
     computed: {
-      stocks () {
-        return this.$store.state.stocks
-      },
-      currentStock () {
-        return this.$store.state.user.currentStock
-      }
+      ...mapState({
+        stocks: state => state.stocks,
+        currentStock: state => state.user.currentStock
+      })
     },
     methods: {
       onBuyError () {
