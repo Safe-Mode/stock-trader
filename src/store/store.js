@@ -15,7 +15,7 @@ export default new Vuex.Store({
   state: {
     user: null,
     stocks: [],
-    isDataDropdown: false,
+    isDataDropdown: false
   },
   mutations: {
     setDataDropdown (state, isShown) {

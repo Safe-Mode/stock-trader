@@ -52,7 +52,8 @@
                 aria-labelledby="navbarDropdown"
                 v-if="isDataDropdown">
               <a class="dropdown-item"
-                  href="#">Save data</a>
+                  href="#"
+                  @click.prevent="saveData">Save data</a>
               <a class="dropdown-item"
                   href="#">Load data</a>
             </div>
@@ -91,6 +92,14 @@
         } else {
           this.setDataDropdown(true)
         }
+      },
+      saveData () {
+        this.$http.post('http://localhost:3000/state/', this.$store.state)
+            .then(response => {
+              this.toggleDataDropDown()
+            }, error => {
+              console.log(error.statusText);
+            })
       }
     }
   }
