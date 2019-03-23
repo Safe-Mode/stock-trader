@@ -35,7 +35,7 @@
           <li class="nav-item">
             <a class="app-nav__link nav-link"
                 href="#"
-                @click.prevent="endDay">End day</a>
+                @click.prevent="END_DAY">End day</a>
           </li>
           <li class="nav-item dropdown">
             <a class="app-nav__link nav-link dropdown-toggle"
@@ -77,7 +77,7 @@
     name: 'app-header',
     data () {
       return {
-        stateURL: 'http://localhost:3000/state/'
+        stateURL: 'state'
       }
     },
     computed: {
@@ -88,17 +88,17 @@
     },
     methods: {
       ...mapMutations([
-        'endDay',
-        'setDataDropdown'
+        'END_DAY',
+        'SET_DATA_DROPDOWN'
       ]),
       ...mapActions([
         'fetchData'
       ]),
       toggleDataDropDown () {
         if (this.isDataDropdown) {
-          this.setDataDropdown(false)
+          this.SET_DATA_DROPDOWN(false)
         } else {
-          this.setDataDropdown(true)
+          this.SET_DATA_DROPDOWN(true)
         }
       },
       saveData () {

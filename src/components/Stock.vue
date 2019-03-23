@@ -71,16 +71,16 @@
     },
     methods: {
       ...mapMutations([
-        'updateFund',
-        'addUserStock',
-        'removeUserStock'
+        'UPDATE_FUND',
+        'ADD_USER_STOCK',
+        'REMOVE_USER_STOCK'
       ]),
       finishDeal (amount) {
-        this.updateFund(amount)
+        this.UPDATE_FUND(amount)
         this.quantity = null
       },
       buyStock () {
-        this.addUserStock({
+        this.ADD_USER_STOCK({
           title: this.stock.title,
           quantity: this.quantity,
           errorCb: this.$emit.bind(this)
@@ -91,7 +91,7 @@
         }
       },
       sellStock () {
-        this.removeUserStock({
+        this.REMOVE_USER_STOCK({
           title: this.stock.title,
           quantity: this.quantity,
           errorCb: this.$emit.bind(this)

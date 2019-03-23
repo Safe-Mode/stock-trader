@@ -11,6 +11,8 @@ const Difference = {
 Vue.use(VueResource)
 Vue.use(Vuex)
 
+Vue.http.options.root = 'http://localhost:3000'
+
 export default new Vuex.Store({
   state: {
     user: null,
@@ -18,10 +20,10 @@ export default new Vuex.Store({
     isDataDropdown: false
   },
   mutations: {
-    setDataDropdown (state, isShown) {
+    SET_DATA_DROPDOWN (state, isShown) {
       state.isDataDropdown = isShown
     },
-    endDay (state) {
+    END_DAY (state) {
       state.stocks.forEach(stock => {
         const difference = getRandomInt(Difference.MIN, Difference.MAX)
         const newPrice = stock.price + difference
@@ -29,7 +31,7 @@ export default new Vuex.Store({
         stock.price = (newPrice > 0) ? newPrice : 0
       })
     },
-    addUserStock (state, stock) {
+    ADD_USER_STOCK (state, stock) {
       state.currentStock = state.stocks.find((it, i) => {
         state.user.currentStockIndex = i
         return it.title === stock.title
@@ -62,10 +64,10 @@ export default new Vuex.Store({
         stock.errorCb('buy-error')
       }
     },
-    updateFund (state, diff) {
+    UPDATE_FUND (state, diff) {
       state.user.fund += diff
     },
-    removeUserStock (state, stock) {
+    REMOVE_USER_STOCK (state, stock) {
       state.user.currentStock = state.user.stocks.find((it, i) => {
         state.user.currentStockIndex = i
         return it.title === stock.title
@@ -90,6 +92,8 @@ export default new Vuex.Store({
   },
   actions: {
     fetchData ({ commit }, url) {
+      url = (url) ? url : ''
+
       Vue.http.get(url)
           .then(response => {
             commit('SET_STATE', response.data)

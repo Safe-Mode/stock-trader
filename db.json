@@ -31,7 +31,7 @@
   },
   "state": {
     "user": {
-      "fund": 6100,
+      "fund": 8400,
       "stocks": [
         {
           "title": "bmw",
@@ -42,34 +42,33 @@
           "title": "google",
           "price": 200,
           "quantity": 10
-        },
-        {
-          "title": "twitter",
-          "price": 8,
-          "quantity": 100
         }
       ],
-      "currentStock": {},
-      "currentStockIndex": 3,
+      "currentStock": {
+        "title": "twitter",
+        "price": 8,
+        "quantity": 100
+      },
+      "currentStockIndex": 2,
       "canBuy": true,
-      "canSell": false
+      "canSell": true
     },
     "stocks": [
       {
         "title": "bmw",
-        "price": 110
+        "price": 157
       },
       {
         "title": "google",
-        "price": 200
+        "price": 165
       },
       {
         "title": "apple",
-        "price": 250
+        "price": 302
       },
       {
         "title": "twitter",
-        "price": 8
+        "price": 23
       }
     ],
     "isDataDropdown": true,
