@@ -21,7 +21,7 @@
       ])
     },
     created () {
-      this.fetchData()
+      this.fetchData('http://localhost:3000/initial')
     }
   }
 </script>

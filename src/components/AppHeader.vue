@@ -55,7 +55,8 @@
                   href="#"
                   @click.prevent="saveData">Save data</a>
               <a class="dropdown-item"
-                  href="#">Load data</a>
+                  href="#"
+                  @click="fetchData(stateURL)">Load data</a>
             </div>
           </li>
         </ul>
@@ -70,11 +71,15 @@
 </template>
 
 <script>
-  import { mapMutations } from 'Vuex'
-  import { mapState } from 'Vuex'
+  import { mapState, mapMutations, mapActions } from 'Vuex'
 
   export default {
     name: 'app-header',
+    data () {
+      return {
+        stateURL: 'http://localhost:3000/state/'
+      }
+    },
     computed: {
       ...mapState({
         fund: state => (state.user) ? state.user.fund : 0,
@@ -86,6 +91,9 @@
         'endDay',
         'setDataDropdown'
       ]),
+      ...mapActions([
+        'fetchData'
+      ]),
       toggleDataDropDown () {
         if (this.isDataDropdown) {
           this.setDataDropdown(false)
@@ -94,7 +102,7 @@
         }
       },
       saveData () {
-        this.$http.post('http://localhost:3000/state/', this.$store.state)
+        this.$http.post(this.stateURL, this.$store.state)
             .then(response => {
               this.toggleDataDropDown()
             }, error => {

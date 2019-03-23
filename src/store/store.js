@@ -89,8 +89,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    fetchData ({ commit }) {
-      Vue.http.get('http://localhost:3000/initial')
+    fetchData ({ commit }, url) {
+      Vue.http.get(url)
           .then(response => {
             commit('SET_STATE', response.data)
           }, error => {

@@ -31,7 +31,7 @@
   },
   "state": {
     "user": {
-      "fund": 6900,
+      "fund": 6100,
       "stocks": [
         {
           "title": "bmw",
@@ -42,10 +42,15 @@
           "title": "google",
           "price": 200,
           "quantity": 10
+        },
+        {
+          "title": "twitter",
+          "price": 8,
+          "quantity": 100
         }
       ],
       "currentStock": {},
-      "currentStockIndex": 1,
+      "currentStockIndex": 3,
       "canBuy": true,
       "canSell": false
     },
@@ -69,8 +74,8 @@
     ],
     "isDataDropdown": true,
     "currentStock": {
-      "title": "google",
-      "price": 200
+      "title": "twitter",
+      "price": 8
     }
   }
 }
