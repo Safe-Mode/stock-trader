@@ -56,7 +56,7 @@
                   @click.prevent="saveData">Save data</a>
               <a class="dropdown-item"
                   href="#"
-                  @click="fetchData(stateURL)">Load data</a>
+                  @click.prevent="fetchData(stateURL)">Load data</a>
             </div>
           </li>
         </ul>

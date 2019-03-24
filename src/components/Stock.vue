@@ -48,6 +48,7 @@
     name: 'stock',
     props: [
       'stock',
+      'index',
       'isUser'
     ],
     data () {
@@ -91,6 +92,7 @@
         }
       },
       sellStock () {
+        this.$emit('stock-remove', this.index)
         this.REMOVE_USER_STOCK({
           title: this.stock.title,
           quantity: this.quantity,

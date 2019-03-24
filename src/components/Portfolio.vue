@@ -1,17 +1,26 @@
 <template>
   <section class="portfolio">
-    <p class="portfolio__message"
-        v-if="!stocks.length">You've got no any stocks yet...</p>
+    <transition mode="out-in"
+        enter-active-class="animated fadeIn faster"
+        leave-active-class="animated fadeOut faster">
+      <p class="portfolio__message"
+          v-if="!stocks.length">You've got no any stocks yet...</p>
 
-    <ul class="portfolio__list row">
-      <li class="portfolio__item col-6"
-          v-for="(stock, index) in stocks"
-          :key="index">
-          <Stock :stock="stock"
-              isUser="true"
-              @sell-error="onSellError"></Stock>
-      </li>
-    </ul>
+      <transition-group class="portfolio__list row"
+          tag="ul"
+          :leave-active-class="`animated ${stockAnimateClass} faster stock-leave-active`"
+          v-else>
+        <li class="portfolio__item col-6"
+            v-for="(stock, index) in stocks"
+            :key="stock.title">
+            <Stock :stock="stock"
+                :index="index"
+                isUser="true"
+                @sell-error="onSellError"
+                @stock-remove="getStockAnimateClass"></Stock>
+        </li>
+      </transition-group>
+    </transition>
 
     <sweet-modal icon="error"
         title="Oh noes…"
@@ -26,6 +35,12 @@
   import Stock from './Stock'
 
   export default {
+    name: 'portfolio',
+    data () {
+      return {
+        stockAnimateClass: 'fadeOutLeft'
+      }
+    },
     components: {
       Stock
     },
@@ -38,20 +53,56 @@
     methods: {
       onSellError () {
         this.$refs.sellError.open()
+      },
+      getStockAnimateClass (index) {
+        this.stockAnimateClass = (index % 2) ? 'fadeOutRight' : 'fadeOutLeft'
       }
+    },
+    updated () {
+      const getCoords = (elem) => {
+        const box = elem.getBoundingClientRect();
+
+        return {
+          top: box.top + pageYOffset,
+          left: box.left + pageXOffset
+        }
+      }
+
+      window.setTimeout(() => {
+        document.querySelectorAll('.portfolio__item').forEach((item) => {
+          const timeout = parseFloat(window.getComputedStyle(item).transitionDuration, 10) * 1000
+
+          window.setTimeout(() => {
+            const coords = getCoords(item)
+
+            item.style.left = `${coords.left}px`
+            item.style.top = `${coords.top}px`
+            item.style.width = window.getComputedStyle(item).width
+          }, timeout)
+        })
+      }, 550)
     }
   }
 </script>
 
-<style lang="css">
+<style lang="scss">
   .portfolio__list {
     padding: 0;
     list-style: none;
+  }
+
+  .portfolio__item {
+    position: static;
+    transition: all 0.5s;
   }
 
   .portfolio__message {
     margin-top: 30vh;
     font-size: 1.6rem;
     text-align: center;
+  }
+
+  .stock-leave-active {
+    position: absolute;
   }
 </style>
