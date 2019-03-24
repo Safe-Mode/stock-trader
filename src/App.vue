@@ -3,7 +3,13 @@
       class="container"
       @click="isDataDropDown = false">
     <AppHeader></AppHeader>
-    <router-view></router-view>
+
+    <transition mode="out-in"
+        enter-active-class="animated fadeInLeft faster"
+        leave-active-class="animated fadeOutDown faster"
+        appear>
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -27,6 +33,8 @@
 </script>
 
 <style lang="scss">
+  @import "~animate.css/animate";
+
   body {
     font-family: "Bree Serif", "Times New Roman", serif;
   }
