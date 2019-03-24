@@ -57,10 +57,8 @@
       },
       getStockAnimateClass (index) {
         this.stockAnimateClass = (index % 2) ? 'fadeOutRight' : 'fadeOutLeft'
-      }
-    },
-    updated () {
-      window.setTimeout(() => {
+      },
+      setItemsCoords () {
         document.querySelectorAll('.portfolio__item').forEach((item) => {
           const timeout = parseFloat(window.getComputedStyle(item).transitionDuration, RADIX_TEN) * MILLISEC_FACTOR
 
@@ -72,7 +70,15 @@
             item.style.width = window.getComputedStyle(item).width
           }, timeout)
         })
-      }, 550)
+      }
+    },
+    mounted () {
+      this.setItemsCoords()
+    },
+    updated () {
+      window.setTimeout(() => {
+        this.setItemsCoords()
+      }, 600)
     }
   }
 </script>
