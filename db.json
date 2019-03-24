@@ -77,7 +77,6 @@
         "price": 8
       }
     ],
-    "isDataDropdown": true,
     "currentStock": {
       "title": "apple",
       "price": 250

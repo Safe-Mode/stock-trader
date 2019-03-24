@@ -56,7 +56,7 @@
                   @click.prevent="saveData">Save data</a>
               <a class="dropdown-item"
                   href="#"
-                  @click.prevent="fetchData(stateURL)">Load data</a>
+                  @click.prevent="loadData">Load data</a>
             </div>
           </li>
         </ul>
@@ -82,6 +82,7 @@
     },
     computed: {
       ...mapState({
+        user: state => state.user,
         fund: state => (state.user) ? state.user.fund : 0,
         isDataDropdown: state => state.isDataDropdown
       })
@@ -102,12 +103,19 @@
         }
       },
       saveData () {
-        this.$http.post(this.stateURL, this.$store.state)
+        this.$http.post(this.stateURL, this.user)
             .then(response => {
               this.toggleDataDropDown()
             }, error => {
               console.log(error.statusText);
             })
+      },
+      loadData () {
+        new Promise((resolve) => {
+          resolve(this.fetchData(this.stateURL))
+        }).then(() => {
+          this.toggleDataDropDown()
+        })
       }
     }
   }
