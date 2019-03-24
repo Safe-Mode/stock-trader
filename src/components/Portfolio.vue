@@ -33,6 +33,7 @@
 <script>
   import { mapState } from 'vuex'
   import Stock from './Stock'
+  import { RADIX_TEN, MILLISEC_FACTOR, getCoords } from '../util'
 
   export default {
     name: 'portfolio',
@@ -59,18 +60,9 @@
       }
     },
     updated () {
-      const getCoords = (elem) => {
-        const box = elem.getBoundingClientRect();
-
-        return {
-          top: box.top + pageYOffset,
-          left: box.left + pageXOffset
-        }
-      }
-
       window.setTimeout(() => {
         document.querySelectorAll('.portfolio__item').forEach((item) => {
-          const timeout = parseFloat(window.getComputedStyle(item).transitionDuration, 10) * 1000
+          const timeout = parseFloat(window.getComputedStyle(item).transitionDuration, RADIX_TEN) * MILLISEC_FACTOR
 
           window.setTimeout(() => {
             const coords = getCoords(item)
