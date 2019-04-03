@@ -7,6 +7,9 @@ import store from './store/store'
 
 Vue.use(VueRouter)
 Vue.use(SweetModal)
+Vue.filter('currency', (value) => {
+  return `$${value.toLocaleString()}`
+})
 
 const router = new VueRouter({
   routes,

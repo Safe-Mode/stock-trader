@@ -63,7 +63,7 @@
 
         <b class="navbar-text">
           <span>Funds:</span>
-          <span>${{ fund }}</span>
+          <span>{{ fund | currency }}</span>
         </b>
       </div>
     </nav>

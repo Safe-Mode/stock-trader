@@ -7,7 +7,7 @@
 
     <b class="content__user d-block mt-5">
       <span>Your Funds:</span>
-      <span>${{ fund }}</span>
+      <span>{{ fund | currency }}</span>
     </b>
   </section>
 </template>
