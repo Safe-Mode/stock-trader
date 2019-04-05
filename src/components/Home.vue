@@ -32,8 +32,8 @@
       }
     },
     watch: {
-      fund () {
-        TweenLite.to(this.$data, DURATION_TRANSITION_STATE, { tweenedFund: this.fund });
+      fund (newVal) {
+        TweenLite.to(this.$data, DURATION_TRANSITION_STATE, { tweenedFund: newVal });
       }
     }
   }

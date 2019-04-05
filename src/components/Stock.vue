@@ -5,7 +5,7 @@
       <h5 class="card-title text-white mb-0">
         {{ stock.title }}
         <span class="stock__info">
-          ( Price: {{ price }}
+          ( Price: {{ animatedPrice }}
           <template v-if="stock.quantity">
             | Quantity: {{ animatedQuantity }}</template> )
         </span>
@@ -55,7 +55,8 @@
     data () {
       return {
         quantity: null,
-        tweenedQuantity: 0
+        tweenedQuantity: 0,
+        tweenedPrice: 0
       }
     },
     computed: {
@@ -73,6 +74,9 @@
       },
       animatedQuantity () {
         return this.tweenedQuantity.toFixed(0)
+      },
+      animatedPrice () {
+        return this.tweenedPrice.toFixed(0)
       }
     },
     methods: {
@@ -115,10 +119,14 @@
           TweenLite.to(this.$data, DURATION_TRANSITION_STATE, { tweenedQuantity: newVal.quantity })
         },
         deep: true
+      },
+      price (newVal) {
+        TweenLite.to(this.$data, DURATION_TRANSITION_STATE, { tweenedPrice: newVal })
       }
     },
     created () {
-      this.tweenedQuantity = this.stock.quantity
+      this.tweenedQuantity = this.stock.quantity,
+      this.tweenedPrice = this.stock.price
     }
   }
 </script>
