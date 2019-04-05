@@ -1,5 +1,6 @@
 const RADIX_TEN = 10
 const MILLISEC_FACTOR = 1000
+const DURATION_TRANSITION_STATE = 0.7
 
 const getRandomInt = (min, max) => {
   let rand = min + Math.random() * (max + 1 - min);
@@ -19,6 +20,7 @@ const getCoords = (elem) => {
 export {
   RADIX_TEN,
   MILLISEC_FACTOR,
+  DURATION_TRANSITION_STATE,
   getRandomInt,
   getCoords
 }

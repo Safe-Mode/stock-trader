@@ -63,7 +63,7 @@
 
         <b class="navbar-text">
           <span>Funds:</span>
-          <span>{{ fund | currency }}</span>
+          <span>{{ animatedFund | currency }}</span>
         </b>
       </div>
     </nav>
@@ -72,12 +72,16 @@
 
 <script>
   import { mapState, mapMutations, mapActions } from 'Vuex'
+  import { TweenMax } from 'gsap/TweenMax'
+  import { DURATION_TRANSITION_STATE } from '../util'
+
 
   export default {
     name: 'app-header',
     data () {
       return {
-        stateURL: 'state'
+        stateURL: 'state',
+        tweenedFund: 0
       }
     },
     computed: {
@@ -85,7 +89,10 @@
         user: state => state.user,
         fund: state => (state.user) ? state.user.fund : 0,
         isDataDropdown: state => state.isDataDropdown
-      })
+      }),
+      animatedFund () {
+        return this.tweenedFund.toFixed(0);
+      }
     },
     methods: {
       ...mapMutations([
@@ -116,6 +123,11 @@
         }).then(() => {
           this.toggleDataDropDown()
         })
+      }
+    },
+    watch: {
+      fund () {
+        TweenLite.to(this.$data, DURATION_TRANSITION_STATE, { tweenedFund: this.fund });
       }
     }
   }

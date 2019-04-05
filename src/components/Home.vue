@@ -7,19 +7,34 @@
 
     <b class="content__user d-block mt-5">
       <span>Your Funds:</span>
-      <span>{{ fund | currency }}</span>
+      <span>{{ animatedFund | currency }}</span>
     </b>
   </section>
 </template>
 
 <script>
   import { mapState } from 'Vuex'
+  import { TweenMax } from 'gsap/TweenMax'
+  import { DURATION_TRANSITION_STATE } from '../util'
 
   export default {
+    data () {
+      return {
+        tweenedFund: 0
+      }
+    },
     computed: {
       ...mapState({
         fund: state => (state.user) ? state.user.fund : 0
-      })
+      }),
+      animatedFund () {
+        return this.tweenedFund.toFixed(0);
+      }
+    },
+    watch: {
+      fund () {
+        TweenLite.to(this.$data, DURATION_TRANSITION_STATE, { tweenedFund: this.fund });
+      }
     }
   }
 </script>
