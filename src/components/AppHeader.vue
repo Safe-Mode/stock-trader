@@ -91,7 +91,7 @@
         isDataDropdown: state => state.isDataDropdown
       }),
       animatedFund () {
-        return this.tweenedFund.toFixed(0);
+        return this.tweenedFund.toFixed(0)
       }
     },
     methods: {

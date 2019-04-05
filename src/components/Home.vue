@@ -28,7 +28,7 @@
         fund: state => (state.user) ? state.user.fund : 0
       }),
       animatedFund () {
-        return this.tweenedFund.toFixed(0);
+        return this.tweenedFund.toFixed(0)
       }
     },
     watch: {

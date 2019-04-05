@@ -7,7 +7,7 @@
         <span class="stock__info">
           ( Price: {{ price }}
           <template v-if="stock.quantity">
-            | Quantity: {{ stock.quantity }}</template> )
+            | Quantity: {{ animatedQuantity }}</template> )
         </span>
       </h5>
     </header>
@@ -42,6 +42,8 @@
 
 <script>
   import { mapState, mapMutations } from 'vuex'
+  import { TweenMax } from 'gsap/TweenMax'
+  import { DURATION_TRANSITION_STATE } from '../util'
 
   export default {
     name: 'stock',
@@ -52,7 +54,8 @@
     ],
     data () {
       return {
-        quantity: null
+        quantity: null,
+        tweenedQuantity: 0
       }
     },
     computed: {
@@ -67,6 +70,9 @@
       },
       fundDiff () {
         return  this.price * this.quantity
+      },
+      animatedQuantity () {
+        return this.tweenedQuantity.toFixed(0)
       }
     },
     methods: {
@@ -102,6 +108,17 @@
           this.finishDeal(this.fundDiff)
         }
       }
+    },
+    watch: {
+      stock: {
+        handler (newVal) {
+          TweenLite.to(this.$data, DURATION_TRANSITION_STATE, { tweenedQuantity: newVal.quantity })
+        },
+        deep: true
+      }
+    },
+    created () {
+      this.tweenedQuantity = this.stock.quantity
     }
   }
 </script>
