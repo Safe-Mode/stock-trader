@@ -27,7 +27,7 @@
       ])
     },
     created () {
-      this.fetchData('initial')
+      this.fetchData('initial.json')
     }
   }
 </script>

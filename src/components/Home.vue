@@ -25,7 +25,7 @@
     },
     computed: {
       ...mapState({
-        fund: state => (state.user) ? state.user.fund : 0
+        fund: state => (state.user.fund) ? state.user.fund : 0
       }),
       animatedFund () {
         return this.tweenedFund.toFixed(0)
@@ -33,8 +33,11 @@
     },
     watch: {
       fund (newVal) {
-        TweenLite.to(this.$data, DURATION_TRANSITION_STATE, { tweenedFund: newVal });
+        TweenLite.to(this.$data, DURATION_TRANSITION_STATE, { tweenedFund: newVal })
       }
+    },
+    mounted () {
+      this.tweenedFund = this.fund
     }
   }
 </script>

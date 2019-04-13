@@ -47,8 +47,8 @@
     },
     computed: {
       ...mapState({
-        stocks: state => (state.user) ? state.user.stocks : [],
-        currentStock: state => (state.user) ? state.user.currentStock : {}
+        stocks: state => (state.user.stocks) ? state.user.stocks : [],
+        currentStock: state => (state.user.currentStock) ? state.user.currentStock : {}
       })
     },
     methods: {

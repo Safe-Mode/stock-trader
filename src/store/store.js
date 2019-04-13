@@ -11,11 +11,16 @@ const Difference = {
 Vue.use(VueResource)
 Vue.use(Vuex)
 
-Vue.http.options.root = 'http://localhost:3000'
+// Vue.http.options.root = 'http://localhost:3000'
+Vue.http.options.root = 'https://stock-trader-4147e.firebaseio.com/'
 
 export default new Vuex.Store({
   state: {
-    user: null,
+    user: {
+      stocks: [],
+      currentStock: {},
+      currentStockIndex: null
+    },
     stocks: [],
     isDataDropdown: false
   },

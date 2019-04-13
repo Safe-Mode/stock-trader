@@ -2,9 +2,6 @@
   "initial": {
     "user": {
       "fund": 10000,
-      "stocks": [],
-      "currentStock": {},
-      "currentStockIndex": null,
       "canBuy": true,
       "canSell": false
     },
@@ -26,8 +23,7 @@
         "price": 8
       }
     ],
-    "currentStock": null,
-    "isDataDropdown": false
+    "currentStock": null
   },
   "state": {
     "user": {

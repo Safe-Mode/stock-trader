@@ -80,14 +80,13 @@
     name: 'app-header',
     data () {
       return {
-        stateURL: 'state',
+        stateURL: 'state.json',
         tweenedFund: 0
       }
     },
     computed: {
       ...mapState({
-        user: state => state.user,
-        fund: state => (state.user) ? state.user.fund : 0,
+        fund: state => (state.user.fund) ? state.user.fund : 0,
         isDataDropdown: state => state.isDataDropdown
       }),
       animatedFund () {
@@ -110,7 +109,10 @@
         }
       },
       saveData () {
-        this.$http.post(this.stateURL, this.user)
+        this.$http.put(this.stateURL, {
+          user: this.$root.$store.state.user,
+          stocks: this.$root.$store.state.stocks
+        })
             .then(response => {
               this.toggleDataDropDown()
             }, error => {
@@ -127,7 +129,7 @@
     },
     watch: {
       fund (newVal) {
-        TweenLite.to(this.$data, DURATION_TRANSITION_STATE, { tweenedFund: newVal });
+        TweenLite.to(this.$data, DURATION_TRANSITION_STATE, { tweenedFund: newVal })
       }
     }
   }
