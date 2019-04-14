@@ -1,7 +1,7 @@
 <template lang="html">
   <section class="stocks">
     <ul class="stocks__list row">
-      <li class="stocks__item col-6"
+      <li class="stocks__item col-sm-6"
           v-for="stock in stocks">
           <Stock :stock="stock"
               @buy-error="onBuyError"></Stock>

@@ -10,7 +10,7 @@
           tag="ul"
           :leave-active-class="`animated ${stockAnimateClass} faster stock-leave-active`"
           v-else>
-        <li class="portfolio__item col-6"
+        <li class="portfolio__item col-sm-6"
             v-for="(stock, index) in stocks"
             :key="stock.title">
             <Stock :stock="stock"

@@ -1,6 +1,6 @@
 <template>
   <header class="app-header my-4">
-    <nav class="app-nav navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="app-nav navbar navbar-expand-md navbar-light bg-light">
       <router-link to="/"
           class="navbar-brand"
           exact>Stock Trader</router-link>
@@ -10,12 +10,14 @@
           data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
-          aria-label="Toggle navigation">
+          aria-label="Toggle navigation"
+          @click="toggleMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="app-nav__collapse collapse navbar-collapse"
-          id="navbarSupportedContent">
+          id="navbarSupportedContent"
+          :class="{ 'show': isMenuShown }">
         <ul class="navbar-nav mr-auto">
           <router-link to="/portfolio"
               tag="li"
@@ -81,7 +83,8 @@
     data () {
       return {
         stateURL: 'state.json',
-        tweenedFund: 0
+        tweenedFund: 0,
+        collapsed: true
       }
     },
     computed: {
@@ -91,6 +94,9 @@
       }),
       animatedFund () {
         return this.tweenedFund.toFixed(0)
+      },
+      isMenuShown () {
+        return !this.collapsed && window.screen.width < 768
       }
     },
     methods: {
@@ -125,6 +131,20 @@
         }).then(() => {
           this.toggleDataDropDown()
         })
+      },
+      toggleMenu () {
+        const menuHeight = (this.collapsed) ? 200 : 0
+        const isOpen = this.collapsed
+
+        this.collapsed = (isOpen) ? !this.collapsed : this.collapsed
+
+        TweenLite.to('#navbarSupportedContent', DURATION_TRANSITION_STATE, {
+          height: menuHeight,
+          onComplete: () => {
+            this.collapsed = (!isOpen) ? !this.collapsed : this.collapsed
+            document.querySelector('#navbarSupportedContent').style.height = (!isOpen) ? 0 : 'auto'
+          }
+        })
       }
     },
     watch: {
@@ -138,6 +158,19 @@
 <style lang="scss">
   .app-nav {
     .app-nav__collapse {
+      @media (max-width: 767px) {
+        overflow: hidden;
+        height: 0;
+      }
+
+      .app-nav__data {
+        @media (max-width: 767px) {
+          position: absolute;
+          top: auto;
+          bottom: 100%;
+        }
+      }
+
       .app-nav__link {
         padding-left: 1rem;
         padding-right: 1rem;
