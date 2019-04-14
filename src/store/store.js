@@ -1,12 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueResource from 'vue-resource'
-import { getRandomInt } from './../util'
-
-const Difference = {
-  MIN: -50,
-  MAX: 50
-}
+import { Price, getRandomInt } from './../util'
+const merge = require('deepmerge')
 
 Vue.use(VueResource)
 Vue.use(Vuex)
@@ -30,10 +26,10 @@ export default new Vuex.Store({
     },
     END_DAY (state) {
       state.stocks.forEach(stock => {
-        const difference = getRandomInt(Difference.MIN, Difference.MAX)
+        const difference = getRandomInt(Price.Difference.MIN, Price.Difference.MAX)
         const newPrice = stock.price + difference
 
-        stock.price = (newPrice > 0) ? newPrice : 0
+        stock.price = (newPrice > Price.MIN) ? newPrice : Price.MIN
       })
     },
     ADD_USER_STOCK (state, stock) {
@@ -91,7 +87,11 @@ export default new Vuex.Store({
     },
     SET_STATE (state, data) {
       for (let key in data) {
-        state[key] = data[key]
+        if (data[key] !== null && typeof data[key] === 'object' && !Array.isArray(data[key])) {
+          state[key] = merge(state[key], data[key])
+        } else {
+          state[key] = data[key]
+        }
       }
     }
   },

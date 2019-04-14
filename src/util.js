@@ -17,10 +17,19 @@ const getCoords = (elem) => {
   }
 }
 
+const Price = {
+  MIN: 5,
+  Difference: {
+    MIN: -50,
+    MAX: 50
+  }
+}
+
 export {
   RADIX_TEN,
   MILLISEC_FACTOR,
   DURATION_TRANSITION_STATE,
+  Price,
   getRandomInt,
   getCoords
 }
