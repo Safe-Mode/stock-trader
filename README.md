@@ -16,6 +16,8 @@ This is the third project, developing due the video course Vue JS 2 - The Comple
 
 &emsp;...and [one more feature](https://github.com/standard/standard/blob/master/RULES.md#semicolons)
 
+Also I've used Google [Firebase](https://console.firebase.google.com/) for database store.
+
 
 ## Build Setup
 
