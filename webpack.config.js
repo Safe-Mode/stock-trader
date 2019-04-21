@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+const TerserPlugin = require('terser-webpack-plugin-legacy');
 
 module.exports = {
   entry: './src/main.js',
@@ -95,10 +96,21 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
+    // new webpack.optimize.UglifyJsPlugin({
+    //   sourceMap: true,
+    //   compress: {
+    //     warnings: false
+    //   }
+    // }),
+    new TerserPlugin({
+      parallel: true,
+      terserOptions: {
+        ecma: 6,
+          compress: true,
+          output: {
+            comments: false,
+            beautify: false
+          }
       }
     }),
     new webpack.LoaderOptionsPlugin({

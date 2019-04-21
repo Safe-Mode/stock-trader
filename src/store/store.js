@@ -30,6 +30,9 @@ export default new Vuex.Store({
         const newPrice = stock.price + difference
 
         stock.price = (newPrice > Price.MIN) ? newPrice : Price.MIN
+        state.user.stocks.forEach((userStock) => {
+          userStock.price = (userStock.title === stock.title) ? stock.price : userStock.price
+        })
       })
     },
     ADD_USER_STOCK (state, stock) {

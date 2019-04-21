@@ -107,10 +107,7 @@
           quantity: this.quantity,
           errorCb: this.$emit.bind(this)
         })
-
-        if (this.currentStock.quantity >= this.quantity) {
-          this.finishDeal(this.fundDiff)
-        }
+        this.finishDeal(this.fundDiff)
       }
     },
     watch: {
